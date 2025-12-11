@@ -126,7 +126,7 @@ function renderPlayerEntry(player, index) {
     <input 
       type="text" 
       class="player-name-input" 
-      placeholder="Player ${index + 1} name"
+      placeholder="Speler ${index + 1} naam"
       maxlength="20"
       data-player-id="${player.id}"
     >
@@ -192,7 +192,7 @@ function reindexPlayers() {
     const input = entry.querySelector('.player-name-input');
     badge.style.backgroundColor = PLAYER_COLORS[index];
     badge.textContent = index + 1;
-    input.placeholder = `Player ${index + 1} name`;
+    input.placeholder = `Speler ${index + 1} naam`;
   });
 }
 
@@ -215,12 +215,12 @@ async function startGame() {
   try {
     quizData = await loadQuizData();
     if (quizData.length === 0) {
-      alert('No quiz data found!');
+      alert('Geen quiz data gevonden!');
       return;
     }
   } catch (error) {
     console.error('Failed to load quiz data:', error);
-    alert('Failed to load quiz data. Make sure quiz.json exists in the data folder.');
+    alert('Kon quiz data niet laden. Zorg dat quiz.json in de data map staat.');
     return;
   }
   
@@ -343,7 +343,7 @@ function showCurrentPhoto() {
   elements.quizCaption.textContent = photo.text;
   
   // Update progress
-  elements.photoCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${quizData.length}`;
+  elements.photoCounter.textContent = `Foto ${currentPhotoIndex + 1} van ${quizData.length}`;
   elements.progressBar.style.width = `${((currentPhotoIndex) / quizData.length) * 100}%`;
   
   // Update player turn banner
@@ -457,7 +457,7 @@ function showRoundResults() {
   showScreen('results');
   
   const currentPhoto = quizData[currentPhotoIndex];
-  elements.resultsPhotoNum.textContent = `Photo ${currentPhotoIndex + 1} of ${quizData.length}`;
+  elements.resultsPhotoNum.textContent = `Foto ${currentPhotoIndex + 1} van ${quizData.length}`;
   
   // Initialize results map
   initResultsMap(currentPhoto);
@@ -473,9 +473,9 @@ function showRoundResults() {
   
   // Update next button text
   if (currentPhotoIndex >= quizData.length - 1) {
-    elements.nextPhotoBtn.textContent = 'See Final Results';
+    elements.nextPhotoBtn.textContent = 'Bekijk Eindstand';
   } else {
-    elements.nextPhotoBtn.textContent = 'Next Photo';
+    elements.nextPhotoBtn.textContent = 'Volgende Foto';
   }
 }
 
@@ -649,7 +649,7 @@ function createPodiumPlace(player, rank, medal) {
         ${getPlayerInitial(player.name)}
       </div>
       <div class="podium-name">${player.name}</div>
-      <div class="podium-score">${player.totalScore} pts</div>
+      <div class="podium-score">${player.totalScore} pnt</div>
       <div class="podium-stand ${medal}">${rank}</div>
     </div>
   `;

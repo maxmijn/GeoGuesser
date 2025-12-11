@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>GeoGuess Quiz</title>
+  <title>GeoRaad Quiz</title>
   
   <!-- Mapbox GL JS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
@@ -23,19 +23,19 @@
     <div class="setup-container">
       <div class="logo-section">
         <h1 class="game-title">
-          <span class="title-geo">Geo</span><span class="title-guess">Guess</span>
+          <span class="title-geo">Geo</span><span class="title-guess">Raad</span>
         </h1>
-        <p class="tagline">How well do you know the world?</p>
+        <p class="tagline">Hoe goed ken jij de wereld?</p>
       </div>
       
       <div class="players-section">
-        <h2 class="section-title">Players</h2>
+        <h2 class="section-title">Spelers</h2>
         <div id="players-list" class="players-list">
           <!-- Player entries will be added here dynamically -->
         </div>
         <button id="add-player-btn" class="add-player-btn">
           <span class="plus-icon">+</span>
-          <span>Add Player</span>
+          <span>Speler Toevoegen</span>
         </button>
       </div>
       
@@ -49,7 +49,7 @@
   <div id="quiz-screen" class="screen">
     <div class="quiz-header">
       <div class="progress-info">
-        <span id="photo-counter" class="photo-counter">Photo 1 of 5</span>
+        <span id="photo-counter" class="photo-counter">Foto 1 van 5</span>
         <div class="progress-bar-container">
           <div id="progress-bar" class="progress-bar"></div>
         </div>
@@ -67,16 +67,16 @@
       <div class="map-section">
         <div id="player-turn-banner" class="player-turn-banner">
           <span class="turn-emoji">🎯</span>
-          <span id="current-player-name">Player 1</span>'s turn!
+          <span id="current-player-name">Speler 1</span> is aan de beurt!
         </div>
         <div id="map" class="map-container"></div>
-        <p class="map-hint">Tap the map to place your guess</p>
+        <p class="map-hint">Tik op de kaart om te raden</p>
       </div>
     </div>
     
     <div class="quiz-footer">
       <button id="confirm-guess-btn" class="confirm-btn" disabled>
-        Confirm Guess
+        Bevestig Keuze
       </button>
     </div>
   </div>
@@ -85,9 +85,9 @@
   <div id="pass-overlay" class="overlay">
     <div class="pass-content">
       <div class="pass-emoji">📱</div>
-      <h2>Pass the iPad to</h2>
+      <h2>Geef de iPad aan</h2>
       <div id="next-player-display" class="next-player-name"></div>
-      <button id="ready-btn" class="ready-btn">I'm Ready!</button>
+      <button id="ready-btn" class="ready-btn">Ik ben klaar!</button>
     </div>
   </div>
 
@@ -95,31 +95,31 @@
   <div id="reveal-overlay" class="overlay">
     <div class="reveal-content">
       <div class="reveal-emoji">🗺️</div>
-      <h2>All guesses are in!</h2>
-      <p class="reveal-subtitle">Ready to see where everyone guessed?</p>
-      <button id="show-result-btn" class="show-result-btn">Show Result</button>
+      <h2>Iedereen heeft geraden!</h2>
+      <p class="reveal-subtitle">Klaar om te zien waar iedereen heeft gekozen?</p>
+      <button id="show-result-btn" class="show-result-btn">Toon Resultaat</button>
     </div>
   </div>
 
   <!-- ==================== SCREEN 3: ROUND RESULTS ==================== -->
   <div id="results-screen" class="screen">
     <div class="results-header">
-      <h2 class="results-title">Round Results</h2>
-      <p id="results-photo-num" class="results-photo-num">Photo 1 of 5</p>
+      <h2 class="results-title">Ronde Resultaten</h2>
+      <p id="results-photo-num" class="results-photo-num">Foto 1 van 5</p>
     </div>
     
     <div class="results-content">
       <div id="results-map" class="results-map-container"></div>
       
       <div class="round-scores">
-        <h3>This Round</h3>
+        <h3>Deze Ronde</h3>
         <div id="round-scores-list" class="scores-list">
           <!-- Scores will be added here -->
         </div>
       </div>
       
       <div class="total-scores">
-        <h3>Total Scores</h3>
+        <h3>Totaal Score</h3>
         <div id="total-scores-list" class="scores-list">
           <!-- Total scores will be added here -->
         </div>
@@ -127,7 +127,7 @@
     </div>
     
     <div class="results-footer">
-      <button id="next-photo-btn" class="next-btn">Next Photo</button>
+      <button id="next-photo-btn" class="next-btn">Volgende Foto</button>
     </div>
   </div>
 
@@ -136,7 +136,7 @@
     <div class="final-container">
       <div class="confetti-container" id="confetti"></div>
       
-      <h1 class="final-title">Game Over!</h1>
+      <h1 class="final-title">Einde Spel!</h1>
       
       <div class="podium-section">
         <div id="podium" class="podium">
@@ -145,13 +145,13 @@
       </div>
       
       <div class="final-leaderboard">
-        <h3>Final Standings</h3>
+        <h3>Eindstand</h3>
         <div id="final-scores-list" class="final-scores-list">
           <!-- All player scores -->
         </div>
       </div>
       
-      <button id="play-again-btn" class="play-again-btn">Play Again</button>
+      <button id="play-again-btn" class="play-again-btn">Opnieuw Spelen</button>
     </div>
   </div>
 
