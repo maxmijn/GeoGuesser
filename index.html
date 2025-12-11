@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GeoGuess Quiz</title>
+  
+  <!-- Mapbox GL JS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  
+  <!-- Google Fonts - Playful Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- App Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ==================== SCREEN 1: PLAYER SETUP ==================== -->
+  <div id="setup-screen" class="screen active">
+    <div class="setup-container">
+      <div class="logo-section">
+        <h1 class="game-title">
+          <span class="title-geo">Geo</span><span class="title-guess">Guess</span>
+        </h1>
+        <p class="tagline">How well do you know the world?</p>
+      </div>
+      
+      <div class="players-section">
+        <h2 class="section-title">Players</h2>
+        <div id="players-list" class="players-list">
+          <!-- Player entries will be added here dynamically -->
+        </div>
+        <button id="add-player-btn" class="add-player-btn">
+          <span class="plus-icon">+</span>
+          <span>Add Player</span>
+        </button>
+      </div>
+      
+      <button id="start-game-btn" class="start-btn" disabled>
+        Start Quiz
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 2: QUIZ ROUND ==================== -->
+  <div id="quiz-screen" class="screen">
+    <div class="quiz-header">
+      <div class="progress-info">
+        <span id="photo-counter" class="photo-counter">Photo 1 of 5</span>
+        <div class="progress-bar-container">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="quiz-content">
+      <div class="photo-section">
+        <div class="photo-frame">
+          <img id="quiz-photo" src="" alt="Guess the location">
+        </div>
+        <p id="quiz-caption" class="photo-caption"></p>
+      </div>
+      
+      <div class="map-section">
+        <div id="player-turn-banner" class="player-turn-banner">
+          <span class="turn-emoji">🎯</span>
+          <span id="current-player-name">Player 1</span>'s turn!
+        </div>
+        <div id="map" class="map-container"></div>
+        <p class="map-hint">Tap the map to place your guess</p>
+      </div>
+    </div>
+    
+    <div class="quiz-footer">
+      <button id="confirm-guess-btn" class="confirm-btn" disabled>
+        Confirm Guess
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== PASS DEVICE OVERLAY ==================== -->
+  <div id="pass-overlay" class="overlay">
+    <div class="pass-content">
+      <div class="pass-emoji">📱</div>
+      <h2>Pass the iPad to</h2>
+      <div id="next-player-display" class="next-player-name"></div>
+      <button id="ready-btn" class="ready-btn">I'm Ready!</button>
+    </div>
+  </div>
+
+  <!-- ==================== SHOW RESULT OVERLAY ==================== -->
+  <div id="reveal-overlay" class="overlay">
+    <div class="reveal-content">
+      <div class="reveal-emoji">🗺️</div>
+      <h2>All guesses are in!</h2>
+      <p class="reveal-subtitle">Ready to see where everyone guessed?</p>
+      <button id="show-result-btn" class="show-result-btn">Show Result</button>
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 3: ROUND RESULTS ==================== -->
+  <div id="results-screen" class="screen">
+    <div class="results-header">
+      <h2 class="results-title">Round Results</h2>
+      <p id="results-photo-num" class="results-photo-num">Photo 1 of 5</p>
+    </div>
+    
+    <div class="results-content">
+      <div id="results-map" class="results-map-container"></div>
+      
+      <div class="round-scores">
+        <h3>This Round</h3>
+        <div id="round-scores-list" class="scores-list">
+          <!-- Scores will be added here -->
+        </div>
+      </div>
+      
+      <div class="total-scores">
+        <h3>Total Scores</h3>
+        <div id="total-scores-list" class="scores-list">
+          <!-- Total scores will be added here -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="results-footer">
+      <button id="next-photo-btn" class="next-btn">Next Photo</button>
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 4: FINAL LEADERBOARD ==================== -->
+  <div id="final-screen" class="screen">
+    <div class="final-container">
+      <div class="confetti-container" id="confetti"></div>
+      
+      <h1 class="final-title">Game Over!</h1>
+      
+      <div class="podium-section">
+        <div id="podium" class="podium">
+          <!-- Podium places will be added here -->
+        </div>
+      </div>
+      
+      <div class="final-leaderboard">
+        <h3>Final Standings</h3>
+        <div id="final-scores-list" class="final-scores-list">
+          <!-- All player scores -->
+        </div>
+      </div>
+      
+      <button id="play-again-btn" class="play-again-btn">Play Again</button>
+    </div>
+  </div>
+
+  <!-- App Script -->
+  <script src="script.js"></script>
+</body>
+</html>
+

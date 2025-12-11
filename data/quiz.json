@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "image": "./images/eiffel-tower.svg",
+    "text": "This iconic iron lattice tower was completed in 1889",
+    "lat": 48.8584,
+    "lng": 2.2945
+  },
+  {
+    "id": "2",
+    "image": "./images/colosseum.svg",
+    "text": "An ancient amphitheater that could hold 50,000 spectators",
+    "lat": 41.8902,
+    "lng": 12.4922
+  },
+  {
+    "id": "3",
+    "image": "./images/statue-of-liberty.svg",
+    "text": "A gift from France, this copper statue arrived in 1886",
+    "lat": 40.6892,
+    "lng": -74.0445
+  },
+  {
+    "id": "4",
+    "image": "./images/sydney-opera-house.svg",
+    "text": "Famous for its sail-shaped roof shells",
+    "lat": -33.8568,
+    "lng": 151.2153
+  },
+  {
+    "id": "5",
+    "image": "./images/big-ben.svg",
+    "text": "The Great Bell of this clock tower weighs 13.5 tonnes",
+    "lat": 51.5007,
+    "lng": -0.1246
+  }
+]
+
