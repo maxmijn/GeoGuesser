@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "image": "./images/statue-of-liberty.svg",
+    "text": "Een geschenk uit Frankrijk, dit koperen beeld arriveerde in 1886",
+    "lat": 40.6892,
+    "lng": -74.0445
+  },
+  {
+    "id": "2",
+    "image": "./images/big-ben.svg",
+    "text": "De Grote Klok van deze klokkentoren weegt 13,5 ton",
+    "lat": 51.5007,
+    "lng": -0.1246
+  }
+]

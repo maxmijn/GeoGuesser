@@ -1,6 +1,13 @@
 // ==================== CONFIGURATION ====================
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibWF4bWlqbiIsImEiOiJjbWoxa2pmYnUwanQyM2VzYjFjOHl6cW5xIn0.LS3snE9DmmIjNE46Nv-oMQ';
 
+// Password hashes (SHA-256) - actual passwords are NOT stored in code!
+// Each password loads a different quiz from ./data/{quizId}/quiz.json
+const QUIZ_PASSWORDS = {
+  'e5a32e4aa10c11407bb87b67b2bdcc4f563e30b8f44c68f1547428f007292732': 'bashchristmas',
+  'b2e59516753c04c4d910791c73d581143765e4db182a5441d6af3f523f0f282a': 'kerst2025',
+};
+
 // Player colors palette
 const PLAYER_COLORS = [
   '#FF6B6B', // Red
@@ -19,6 +26,7 @@ let currentPlayerIndex = 0;
 let currentPhotoIndex = 0;
 let quizData = [];
 let roundGuesses = []; // Stores guesses for current round
+let currentQuizPath = ''; // Path to quiz data folder (set after password validation)
 
 // Map instances
 let quizMap = null;
@@ -29,12 +37,18 @@ let guessCoordinates = null;
 // ==================== DOM ELEMENTS ====================
 const elements = {
   // Screens
+  passwordScreen: document.getElementById('password-screen'),
   setupScreen: document.getElementById('setup-screen'),
   quizScreen: document.getElementById('quiz-screen'),
   resultsScreen: document.getElementById('results-screen'),
   finalScreen: document.getElementById('final-screen'),
   passOverlay: document.getElementById('pass-overlay'),
   revealOverlay: document.getElementById('reveal-overlay'),
+  
+  // Password screen
+  passwordForm: document.getElementById('password-form'),
+  passwordInput: document.getElementById('password-input'),
+  passwordError: document.getElementById('password-error'),
   
   // Setup screen
   playersList: document.getElementById('players-list'),
@@ -73,21 +87,72 @@ const elements = {
   confettiContainer: document.getElementById('confetti'),
 };
 
+// ==================== ACCESS CONTROL ====================
+async function hashString(str) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function handlePasswordSubmit(e) {
+  e.preventDefault();
+  
+  const password = elements.passwordInput.value.trim();
+  if (!password) {
+    showPasswordError('Voer een wachtwoord in.');
+    return;
+  }
+  
+  const passwordHash = await hashString(password);
+  const quizId = QUIZ_PASSWORDS[passwordHash];
+  
+  if (!quizId) {
+    showPasswordError('Onjuist wachtwoord. Probeer opnieuw.');
+    elements.passwordInput.value = '';
+    elements.passwordInput.focus();
+    return;
+  }
+  
+  // Valid password - set quiz path and continue to setup
+  currentQuizPath = `./data/${quizId}/quiz.json`;
+  elements.passwordError.textContent = '';
+  showScreen('setup');
+  addPlayer(); // Add first player input
+}
+
+function showPasswordError(message) {
+  elements.passwordError.textContent = message;
+  elements.passwordError.classList.add('visible');
+}
+
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
   setupEventListeners();
-  addPlayer(); // Start with one player input
+  // Focus password input on load
+  elements.passwordInput.focus();
 }
 
 function setupEventListeners() {
+  // Password screen
+  elements.passwordForm.addEventListener('submit', handlePasswordSubmit);
+  
+  // Setup screen
   elements.addPlayerBtn.addEventListener('click', addPlayer);
   elements.startGameBtn.addEventListener('click', startGame);
+  
+  // Quiz screen
   elements.confirmGuessBtn.addEventListener('click', confirmGuess);
   elements.readyBtn.addEventListener('click', playerReady);
   elements.showResultBtn.addEventListener('click', showResult);
+  
+  // Results screen
   elements.nextPhotoBtn.addEventListener('click', nextPhoto);
+  
+  // Final screen
   elements.playAgainBtn.addEventListener('click', playAgain);
 }
 
@@ -237,7 +302,7 @@ async function startGame() {
 }
 
 async function loadQuizData() {
-  const response = await fetch('./data/quiz.json');
+  const response = await fetch(currentQuizPath);
   if (!response.ok) {
     throw new Error('Failed to load quiz data');
   }
@@ -246,6 +311,7 @@ async function loadQuizData() {
 
 function showScreen(screenName) {
   // Hide all screens
+  elements.passwordScreen.classList.remove('active');
   elements.setupScreen.classList.remove('active');
   elements.quizScreen.classList.remove('active');
   elements.resultsScreen.classList.remove('active');
@@ -253,6 +319,9 @@ function showScreen(screenName) {
   
   // Show requested screen
   switch (screenName) {
+    case 'password':
+      elements.passwordScreen.classList.add('active');
+      break;
     case 'setup':
       elements.setupScreen.classList.add('active');
       break;

@@ -183,6 +183,122 @@ body {
   }
 }
 
+/* ==================== SCREEN 0: PASSWORD ==================== */
+#password-screen {
+  background: var(--bg-gradient-cool);
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-lg);
+}
+
+.password-container {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.password-container .logo-section {
+  text-align: center;
+}
+
+.password-container .game-title {
+  color: var(--color-white);
+}
+
+.password-container .title-geo {
+  color: var(--color-white);
+}
+
+.password-container .title-guess {
+  color: var(--color-accent);
+}
+
+.password-container .tagline {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-icon {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.3rem;
+  z-index: 1;
+}
+
+.password-input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+  border: 3px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-dark);
+  transition: all 0.2s ease;
+}
+
+.password-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.password-input::placeholder {
+  color: var(--color-gray);
+}
+
+.password-error {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  text-align: center;
+  min-height: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.password-error.visible {
+  opacity: 1;
+}
+
+.password-btn {
+  padding: 1rem 2rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.password-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+  background: var(--color-accent-hot);
+}
+
+.password-btn:active {
+  transform: translateY(0);
+}
+
 /* ==================== SCREEN 1: PLAYER SETUP ==================== */
 #setup-screen {
   background: var(--bg-main);
@@ -763,7 +879,6 @@ body {
   font-weight: 700;
   color: var(--color-primary);
   animation: scoreReveal 0.5s ease-out;
-  min-width: 60px;
   text-align: right;
 }
 

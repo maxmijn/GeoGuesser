@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "image": "./images/eiffel-tower.svg",
+    "text": "Deze iconische ijzeren toren werd voltooid in 1889",
+    "lat": 48.8584,
+    "lng": 2.2945
+  },
+  {
+    "id": "2",
+    "image": "./images/colosseum.svg",
+    "text": "Een oud amfitheater dat 50.000 toeschouwers kon bevatten",
+    "lat": 41.8902,
+    "lng": 12.4922
+  }
+]
