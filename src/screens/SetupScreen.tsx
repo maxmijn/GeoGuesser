@@ -1,5 +1,6 @@
 import { useCallback, useRef, useEffect } from 'react';
 import { PlayerEntry } from '../components/PlayerEntry';
+import { MapPreloader } from '../components/MapPreloader';
 import { useGame } from '../context/GameContext';
 import type { QuizPhoto } from '../types';
 
@@ -65,6 +66,8 @@ export function SetupScreen() {
 
   return (
     <div id="setup-screen" className="screen active">
+      {/* Preload map in background while user sets up players */}
+      <MapPreloader />
       <div className="setup-container">
         <div className="logo-section">
           <h1 className="game-title">

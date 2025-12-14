@@ -9,25 +9,35 @@ interface ResultsMapProps {
   guesses: Guess[];
 }
 
+// Detect older/slower devices once
+const isSlowDevice = typeof navigator !== 'undefined' && (
+  /iPad|iPhone/.test(navigator.userAgent) || 
+  (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+);
+
+// Get optimal style for device
+const getOptimalStyle = (isChristmas: boolean) => {
+  if (isSlowDevice) {
+    return 'mapbox://styles/mapbox/light-v11';
+  }
+  return isChristmas
+    ? 'mapbox://styles/maxmijn/cmj4oe05b00bd01se3bmc7can'
+    : 'mapbox://styles/mapbox/outdoors-v12';
+};
+
 export function ResultsMap({ photo, guesses }: ResultsMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const { isChristmas } = useTheme();
-
+    
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
     mapboxgl.accessToken = MAPBOX_TOKEN;
-
-    // Detect older/slower devices
-    const isSlowDevice = /iPad|iPhone/.test(navigator.userAgent) || 
-      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
     
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: isChristmas
-        ? 'mapbox://styles/maxmijn/cmj4oe05b00bd01se3bmc7can'
-        : 'mapbox://styles/mapbox/outdoors-v12',
+      style: getOptimalStyle(isChristmas),
       zoom: 2,
       center: [photo.lng, photo.lat],
       // Performance optimizations for older devices
@@ -41,12 +51,20 @@ export function ResultsMap({ photo, guesses }: ResultsMapProps) {
       preserveDrawingBuffer: false,
       maxZoom: 12,
       attributionControl: false,
-    });
+      // Skip loading CJK fonts
+      localIdeographFontFamily: 'sans-serif',
+      // Disable resource timing collection
+      collectResourceTiming: false,
+      // Critical for slow devices: reduce pixel ratio (renders fewer pixels)
+      ...(isSlowDevice ? { pixelRatio: 1 } : {}),
+    } as mapboxgl.MapOptions);
     
-    // Force lower pixel ratio on slow devices for better performance
+    // Additional canvas optimizations for slow devices
     if (isSlowDevice) {
       const canvas = map.getCanvas();
       canvas.style.imageRendering = 'optimizeSpeed';
+      canvas.style.willChange = 'transform';
+      map.setMaxPitch(0);
     }
 
     map.dragRotate.disable();

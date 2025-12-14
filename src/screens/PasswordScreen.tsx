@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { MapPreloader } from '../components/MapPreloader';
 import { useGame } from '../context/GameContext';
 import { hashString } from '../utils/hash';
 import { QUIZ_PASSWORDS } from '../types';
@@ -35,6 +36,8 @@ export function PasswordScreen() {
 
   return (
     <div id="password-screen" className="screen active">
+      {/* Start preloading map early while user enters password */}
+      <MapPreloader />
       <ThemeToggle />
 
       <div className="password-container">

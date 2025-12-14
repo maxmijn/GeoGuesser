@@ -1294,6 +1294,15 @@ body.christmas .map-loading-spinner {
 .map-container .mapboxgl-canvas {
   width: 100% !important;
   height: 100% !important;
+  /* GPU acceleration for smoother touch interactions */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  touch-action: pan-x pan-y;
+}
+
+/* Optimize Mapbox controls for touch */
+.mapboxgl-ctrl-group {
+  touch-action: manipulation;
 }
 
 .player-turn-banner {

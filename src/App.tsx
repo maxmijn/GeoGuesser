@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { GameProvider, useGame } from './context/GameContext';
+import { MapProvider } from './context/MapContext';
 import { SnowAnimation } from './components/SnowAnimation';
 import { PasswordScreen } from './screens/PasswordScreen';
 import { SetupScreen } from './screens/SetupScreen';
@@ -46,10 +47,12 @@ function GameScreens() {
 function App() {
   return (
     <ThemeProvider>
-      <GameProvider>
-        <SnowAnimation />
-        <GameScreens />
-      </GameProvider>
+      <MapProvider>
+        <GameProvider>
+          <SnowAnimation />
+          <GameScreens />
+        </GameProvider>
+      </MapProvider>
     </ThemeProvider>
   );
 }
