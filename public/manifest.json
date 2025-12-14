@@ -2,14 +2,15 @@
   "name": "GeoGuess Quiz",
   "short_name": "GeoGuess",
   "description": "A fun geography guessing game",
-  "start_url": "/",
+  "start_url": "/GeoGuesser/",
+  "scope": "/GeoGuesser/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#1a472a",
   "theme_color": "#1a472a",
   "icons": [
     {
-      "src": "/apple-touch-icon.svg",
+      "src": "/GeoGuesser/apple-touch-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
