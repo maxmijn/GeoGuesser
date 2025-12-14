@@ -1542,7 +1542,7 @@ body.christmas .view-photo-btn:hover {
   right: -12px;
   width: 36px;
   height: 36px;
-  background: 'black';
+  background: black;
   color: white;
   border: 3px solid white;
   border-radius: 50%;

@@ -28,8 +28,8 @@ export type Screen = 'password' | 'setup' | 'quiz' | 'results' | 'final';
 export type Theme = 'default' | 'christmas';
 
 export const PLAYER_COLORS = [
-  '#FF6B6B', // Red
-  '#4ECDC4', // Teal
+  '#2d5a27', // Christmas Green
+  '#c41e3a', // Christmas Red
   '#45B7D1', // Blue
   '#F7DC6F', // Yellow
   '#BB8FCE', // Purple
