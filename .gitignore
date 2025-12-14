@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright screenshots
+.playwright-mcp/
+
+# Local development
+*.log
+*.local
+
+# Vite
+.vite/

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "image": "images/GettyImages-955441104.webp",
+    "text": "Deze iconische ijzeren toren werd voltooid in 1889",
+    "answer": "Parijs, Frankrijk - De Eiffeltoren is een symbool van de Franse stad Parijs.",
+    "lat": 48.8584,
+    "lng": 2.2945
+  },
+  {
+    "id": "2",
+    "image": "images/BiNbcY5fXy9Lra47jqHKGK.jpg",
+    "text": "Een oud amfitheater dat 50.000 toeschouwers kon bevatten",
+    "answer": "Rome, Italië - Het Colosseum is een van de meest bekende monumenten van Rome.",
+    "lat": 41.8902,
+    "lng": 12.4922
+  }
+]
