@@ -47,6 +47,10 @@ export function QuizMap({ playerColor, onGuess, guessCoordinates }: QuizMapProps
 
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
+    // Detect older/slower devices
+    const isSlowDevice = /iPad|iPhone/.test(navigator.userAgent) || 
+      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+    
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: getMapStyle(),
@@ -56,9 +60,20 @@ export function QuizMap({ playerColor, onGuess, guessCoordinates }: QuizMapProps
       antialias: false,
       fadeDuration: 0,
       trackResize: false,
-      maxTileCacheSize: 50,
+      maxTileCacheSize: isSlowDevice ? 20 : 50,
       refreshExpiredTiles: false,
+      // Additional performance options
+      renderWorldCopies: false, // Don't render map copies on sides
+      preserveDrawingBuffer: false,
+      maxZoom: 12, // Limit max zoom to reduce tile loading
+      attributionControl: false, // Add manually if needed, saves rendering
     });
+    
+    // Force lower pixel ratio on slow devices for better performance
+    if (isSlowDevice) {
+      const canvas = map.getCanvas();
+      canvas.style.imageRendering = 'optimizeSpeed';
+    }
 
     map.dragRotate.disable();
     map.touchZoomRotate.disableRotation();

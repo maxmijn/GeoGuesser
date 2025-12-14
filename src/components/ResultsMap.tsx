@@ -19,6 +19,10 @@ export function ResultsMap({ photo, guesses }: ResultsMapProps) {
 
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
+    // Detect older/slower devices
+    const isSlowDevice = /iPad|iPhone/.test(navigator.userAgent) || 
+      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+    
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: isChristmas
@@ -30,9 +34,20 @@ export function ResultsMap({ photo, guesses }: ResultsMapProps) {
       antialias: false,
       fadeDuration: 0,
       trackResize: false,
-      maxTileCacheSize: 50,
+      maxTileCacheSize: isSlowDevice ? 20 : 50,
       refreshExpiredTiles: false,
+      // Additional performance options
+      renderWorldCopies: false,
+      preserveDrawingBuffer: false,
+      maxZoom: 12,
+      attributionControl: false,
     });
+    
+    // Force lower pixel ratio on slow devices for better performance
+    if (isSlowDevice) {
+      const canvas = map.getCanvas();
+      canvas.style.imageRendering = 'optimizeSpeed';
+    }
 
     map.dragRotate.disable();
     map.touchZoomRotate.disableRotation();
@@ -75,7 +90,8 @@ export function ResultsMap({ photo, guesses }: ResultsMapProps) {
           .addTo(map);
         bounds.extend(guess.coordinates);
 
-        // Add line after delay
+        // Add line after delay (shorter delay on slow devices)
+        const lineDelay = isSlowDevice ? 150 : 300;
         setTimeout(() => {
           const sourceId = `line-${index}`;
           const layerId = `line-layer-${index}`;
@@ -102,19 +118,28 @@ export function ResultsMap({ photo, guesses }: ResultsMapProps) {
               'line-color': guess.playerColor,
               'line-width': 3,
               'line-opacity': 0.8,
-              'line-dasharray': [2, 2],
+              // Solid lines are faster to render than dashed
+              ...(isSlowDevice ? {} : { 'line-dasharray': [2, 2] }),
             },
           });
-        }, 300 * index);
+        }, lineDelay * index);
       });
 
-      // Fit bounds
+      // Fit bounds - use jumpTo on slow devices instead of animated fitBounds
       setTimeout(() => {
-        map.fitBounds(bounds, {
-          padding: 60,
-          maxZoom: 10,
-          duration: 1000,
-        });
+        if (isSlowDevice) {
+          const center = bounds.getCenter();
+          map.jumpTo({
+            center: [center.lng, center.lat],
+            zoom: Math.min(10, map.getZoom() + 2),
+          });
+        } else {
+          map.fitBounds(bounds, {
+            padding: 60,
+            maxZoom: 10,
+            duration: 1000,
+          });
+        }
       }, 100);
     });
 
