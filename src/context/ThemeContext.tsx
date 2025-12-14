@@ -14,7 +14,7 @@ const THEME_KEY = 'geoguess-theme';
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem(THEME_KEY);
-    return saved === 'christmas' ? 'christmas' : 'default';
+    return saved === 'default' ? 'default' : 'christmas';
   });
 
   const isChristmas = theme === 'christmas';

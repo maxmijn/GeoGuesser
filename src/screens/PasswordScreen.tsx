@@ -40,8 +40,8 @@ export function PasswordScreen() {
       <div className="password-container">
         <div className="logo-section">
           <h1 className="game-title">
-            <span className="title-geo">Geo</span>
-            <span className="title-guess">Guess</span>
+            <span className="title-geo">Kerst</span>
+            <span className="title-guess">Quiz</span>
           </h1>
           <p className="tagline">Voer het wachtwoord in om te beginnen</p>
         </div>
