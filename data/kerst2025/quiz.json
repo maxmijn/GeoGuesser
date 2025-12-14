@@ -1,15 +1,17 @@
 [
   {
     "id": "1",
-    "image": "./images/statue-of-liberty.svg",
-    "text": "Een geschenk uit Frankrijk, dit koperen beeld arriveerde in 1886",
-    "lat": 40.6892,
-    "lng": -74.0445
+    "image": "./images/nobelprijswinnaar-maria-corina-machado-begroet-haar-fans-vanaf-het-balkon-van-het-grand-hotel-in-oslo-waar-ze-na-een-bloedstollende-reis-is-aangekomen.avif",
+    "text": "Waar is de foto van deze Venezolaanse vrouw gemaakt?",
+    "answer": "Oslo, Noorwegen - Nobelprijswinnaar en oppositieleider Maria Corina Machado begroet haar fans vanaf het balkon van het Grand Hotel.",
+    "lat": 59.9139,
+    "lng": 10.7522
   },
   {
     "id": "2",
     "image": "./images/big-ben.svg",
     "text": "De Grote Klok van deze klokkentoren weegt 13,5 ton",
+    "answer": "Londen, Verenigd Koninkrijk - De Big Ben, officieel de Elizabeth Tower.",
     "lat": 51.5007,
     "lng": -0.1246
   }

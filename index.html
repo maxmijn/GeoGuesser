@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="robots" content="noindex, nofollow">
-  <title>GeoGuess Quiz</title>
+  <title>GeoGuess Quiz 🎄</title>
 
-  <!-- Mapbox GL JS -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <!-- Mapbox GL JS v3 (latest) -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.js"></script>
 
   <!-- Google Fonts - Playful Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,8 +23,19 @@
 </head>
 
 <body>
+  <!-- ==================== SNOW ANIMATION CONTAINER ==================== -->
+  <div id="snow-container" class="snow-container"></div>
+
   <!-- ==================== SCREEN 0: PASSWORD ==================== -->
   <div id="password-screen" class="screen active">
+    <!-- Theme Selector - Only on password screen -->
+    <div class="theme-selector">
+      <button id="theme-toggle" class="theme-toggle" title="Wissel thema">
+        <span class="theme-icon default-icon">🎄</span>
+        <span class="theme-icon christmas-icon">☀️</span>
+      </button>
+    </div>
+
     <div class="password-container">
       <div class="logo-section">
         <h1 class="game-title">
@@ -36,6 +47,7 @@
       <form id="password-form" class="password-form">
         <div class="password-input-wrapper">
           <span class="password-icon">🔐</span>
+          <span class="password-icon christmas-icon">🎁</span>
           <input type="password" id="password-input" class="password-input" placeholder="Wachtwoord" autocomplete="off"
             required>
         </div>
@@ -87,13 +99,20 @@
       <div class="photo-section">
         <div class="photo-frame">
           <img id="quiz-photo" src="" alt="Guess the location">
+          <button id="enlarge-quiz-photo-btn" class="enlarge-photo-btn">🔍</button>
+          <div class="photo-frame-decor christmas-only">
+            <span class="corner-decor top-left">🎄</span>
+            <span class="corner-decor top-right">⭐</span>
+            <span class="corner-decor bottom-left">🎁</span>
+          </div>
         </div>
         <p id="quiz-caption" class="photo-caption"></p>
       </div>
 
       <div class="map-section">
         <div id="player-turn-banner" class="player-turn-banner">
-          <span class="turn-emoji">🎯</span>
+          <span class="turn-emoji default-emoji">🎯</span>
+          <span class="turn-emoji christmas-emoji">🎅</span>
           <span id="current-player-name">Speler 1</span> is aan de beurt!
         </div>
         <div id="map" class="map-container"></div>
@@ -112,9 +131,18 @@
   <div id="pass-overlay" class="overlay">
     <div class="pass-content">
       <div class="pass-emoji">📱</div>
+      <div class="pass-emoji christmas-emoji">🎁</div>
       <h2>Geef de iPad aan</h2>
       <div id="next-player-display" class="next-player-name"></div>
       <button id="ready-btn" class="ready-btn">Ik ben klaar!</button>
+    </div>
+  </div>
+
+  <!-- ==================== PHOTO MODAL ==================== -->
+  <div id="photo-modal" class="overlay photo-modal">
+    <div class="photo-modal-content">
+      <button id="close-photo-modal" class="close-modal-btn">✕</button>
+      <img id="modal-photo" src="" alt="Quiz foto">
     </div>
   </div>
 
@@ -122,6 +150,7 @@
   <div id="reveal-overlay" class="overlay">
     <div class="reveal-content">
       <div class="reveal-emoji">🗺️</div>
+      <div class="reveal-emoji christmas-emoji">🎅</div>
       <h2>Iedereen heeft geraden!</h2>
       <p class="reveal-subtitle">Klaar om te zien waar iedereen heeft gekozen?</p>
       <button id="show-result-btn" class="show-result-btn">Toon Resultaat</button>
@@ -133,6 +162,11 @@
     <div class="results-header">
       <h2 class="results-title">Ronde Resultaten</h2>
       <p id="results-photo-num" class="results-photo-num">Foto 1 van 5</p>
+    </div>
+
+    <div id="answer-section" class="answer-section">
+      <p id="answer-text" class="answer-text"></p>
+      <button id="view-photo-btn" class="view-photo-btn">📷 Bekijk Foto</button>
     </div>
 
     <div class="results-content">

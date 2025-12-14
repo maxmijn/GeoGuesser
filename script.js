@@ -1,6 +1,121 @@
 // ==================== CONFIGURATION ====================
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibWF4bWlqbiIsImEiOiJjbWoxa2pmYnUwanQyM2VzYjFjOHl6cW5xIn0.LS3snE9DmmIjNE46Nv-oMQ';
 
+// ==================== THEME MANAGEMENT ====================
+const THEME_KEY = 'geoguess-theme';
+let snowInterval = null;
+
+function initTheme() {
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme === 'christmas') {
+    document.body.classList.add('christmas');
+    startSnowfall();
+  }
+  
+  // Set up theme toggle button
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+  }
+}
+
+function toggleTheme() {
+  const isChristmas = document.body.classList.toggle('christmas');
+  localStorage.setItem(THEME_KEY, isChristmas ? 'christmas' : 'default');
+  
+  if (isChristmas) {
+    startSnowfall();
+    playThemeSound();
+  } else {
+    stopSnowfall();
+  }
+}
+
+function startSnowfall() {
+  const container = document.getElementById('snow-container');
+  if (!container) return;
+  
+  // Clear existing snowflakes
+  container.innerHTML = '';
+  
+  // Snowflake characters
+  const snowflakes = ['❄', '❅', '❆', '✻', '✼', '❉', '✿', '•'];
+  
+  // Create initial batch of snowflakes
+  for (let i = 0; i < 50; i++) {
+    createSnowflake(container, snowflakes, true);
+  }
+  
+  // Continuously add new snowflakes
+  snowInterval = setInterval(() => {
+    if (document.body.classList.contains('christmas')) {
+      createSnowflake(container, snowflakes, false);
+      // Limit snowflakes to prevent performance issues
+      const flakes = container.querySelectorAll('.snowflake');
+      if (flakes.length > 100) {
+        flakes[0].remove();
+      }
+    }
+  }, 200);
+}
+
+function createSnowflake(container, snowflakes, initialBatch) {
+  const flake = document.createElement('div');
+  flake.className = 'snowflake';
+  flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+  
+  // Random horizontal position
+  flake.style.left = `${Math.random() * 100}%`;
+  
+  // Random size
+  const size = 0.5 + Math.random() * 1.5;
+  flake.style.fontSize = `${size}rem`;
+  
+  // Random opacity
+  flake.style.opacity = 0.3 + Math.random() * 0.7;
+  
+  // Random animation duration (slower = more realistic)
+  const duration = 8 + Math.random() * 12;
+  flake.style.animationDuration = `${duration}s`;
+  
+  // For initial batch, start at random vertical positions
+  if (initialBatch) {
+    const startY = Math.random() * 100;
+    flake.style.top = `${startY}vh`;
+    flake.style.animationDelay = `-${Math.random() * duration}s`;
+  }
+  
+  container.appendChild(flake);
+  
+  // Remove snowflake after animation
+  setTimeout(() => {
+    if (flake.parentNode) {
+      flake.remove();
+    }
+  }, duration * 1000 + 1000);
+}
+
+function stopSnowfall() {
+  if (snowInterval) {
+    clearInterval(snowInterval);
+    snowInterval = null;
+  }
+  const container = document.getElementById('snow-container');
+  if (container) {
+    container.innerHTML = '';
+  }
+}
+
+function playThemeSound() {
+  // Optional: Add a subtle jingle sound when switching to Christmas theme
+  // Uncomment below and add a sound file if desired
+  /*
+  const audio = new Audio('./sounds/jingle.mp3');
+  audio.volume = 0.3;
+  audio.play().catch(() => {});
+  */
+}
+
 // Password hashes (SHA-256) - actual passwords are NOT stored in code!
 // Each password loads a different quiz from ./data/{quizId}/quiz.json
 const QUIZ_PASSWORDS = {
@@ -59,6 +174,7 @@ const elements = {
   photoCounter: document.getElementById('photo-counter'),
   progressBar: document.getElementById('progress-bar'),
   quizPhoto: document.getElementById('quiz-photo'),
+  enlargeQuizPhotoBtn: document.getElementById('enlarge-quiz-photo-btn'),
   quizCaption: document.getElementById('quiz-caption'),
   playerTurnBanner: document.getElementById('player-turn-banner'),
   currentPlayerName: document.getElementById('current-player-name'),
@@ -76,6 +192,12 @@ const elements = {
   // Results screen
   resultsPhotoNum: document.getElementById('results-photo-num'),
   resultsMapContainer: document.getElementById('results-map'),
+  answerSection: document.getElementById('answer-section'),
+  answerText: document.getElementById('answer-text'),
+  viewPhotoBtn: document.getElementById('view-photo-btn'),
+  photoModal: document.getElementById('photo-modal'),
+  modalPhoto: document.getElementById('modal-photo'),
+  closePhotoModal: document.getElementById('close-photo-modal'),
   roundScoresList: document.getElementById('round-scores-list'),
   totalScoresList: document.getElementById('total-scores-list'),
   nextPhotoBtn: document.getElementById('next-photo-btn'),
@@ -132,6 +254,7 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
   setupEventListeners();
+  initTheme();
   // Focus password input on load
   elements.passwordInput.focus();
 }
@@ -149,11 +272,44 @@ function setupEventListeners() {
   elements.readyBtn.addEventListener('click', playerReady);
   elements.showResultBtn.addEventListener('click', showResult);
   
+  // Quiz screen - enlarge photo
+  elements.enlargeQuizPhotoBtn.addEventListener('click', () => {
+    elements.modalPhoto.src = elements.quizPhoto.src;
+    openPhotoModal();
+  });
+  
   // Results screen
   elements.nextPhotoBtn.addEventListener('click', nextPhoto);
+  elements.viewPhotoBtn.addEventListener('click', openPhotoModal);
+  elements.closePhotoModal.addEventListener('click', closePhotoModal);
+  elements.photoModal.addEventListener('click', (e) => {
+    if (e.target === elements.photoModal) closePhotoModal();
+  });
   
   // Final screen
   elements.playAgainBtn.addEventListener('click', playAgain);
+  
+  // Warn user before leaving page during active game
+  window.addEventListener('beforeunload', handleBeforeUnload);
+}
+
+// Check if game is in progress (past setup screen)
+function isGameInProgress() {
+  return elements.quizScreen.classList.contains('active') ||
+         elements.resultsScreen.classList.contains('active') ||
+         elements.passOverlay.classList.contains('active') ||
+         elements.revealOverlay.classList.contains('active');
+}
+
+// Handle page unload warning
+function handleBeforeUnload(e) {
+  if (isGameInProgress()) {
+    // Standard way to show browser's native dialog
+    e.preventDefault();
+    // Some browsers require returnValue to be set
+    e.returnValue = '';
+    return '';
+  }
 }
 
 // ==================== PLAYER MANAGEMENT ====================
@@ -342,6 +498,37 @@ function showScreen(screenName) {
 }
 
 // ==================== QUIZ SCREEN ====================
+
+// Helper function to hide all text labels on a map
+function hideMapLabels(map) {
+  try {
+    const style = map.getStyle();
+    if (!style || !style.layers) return;
+    
+    style.layers.forEach(layer => {
+      // Hide all symbol layers (which contain text labels)
+      if (layer.type === 'symbol') {
+        try {
+          map.setLayoutProperty(layer.id, 'visibility', 'none');
+        } catch (e) {
+          // Skip layers that can't be modified
+        }
+      }
+    });
+  } catch (e) {
+    console.log('Could not hide labels:', e);
+  }
+}
+
+// Get the appropriate map style based on current theme
+function getMapStyle() {
+  const isChristmas = document.body.classList.contains('christmas');
+  // Use custom winter style for Christmas, streets for default
+  return isChristmas 
+    ? 'mapbox://styles/maxmijn/cmj4oe05b00bd01se3bmc7can'
+    : 'mapbox://styles/mapbox/streets-v12';
+}
+
 function initQuizMap() {
   mapboxgl.accessToken = MAPBOX_TOKEN;
   
@@ -351,7 +538,7 @@ function initQuizMap() {
   
   quizMap = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v12',
+    style: getMapStyle(),
     zoom: 1.5,
     center: [0, 20],
     cooperativeGestures: true,
@@ -364,9 +551,10 @@ function initQuizMap() {
   // Click handler for placing guesses
   quizMap.on('click', handleMapClick);
   
-  // Ensure map fills container after load
+  // Ensure map fills container after load and hide labels
   quizMap.on('load', () => {
     quizMap.resize();
+    hideMapLabels(quizMap);
   });
 }
 
@@ -528,6 +716,17 @@ function showRoundResults() {
   const currentPhoto = quizData[currentPhotoIndex];
   elements.resultsPhotoNum.textContent = `Foto ${currentPhotoIndex + 1} van ${quizData.length}`;
   
+  // Display answer text if available
+  if (currentPhoto.answer) {
+    elements.answerText.textContent = currentPhoto.answer;
+    elements.answerSection.style.display = 'flex';
+  } else {
+    elements.answerSection.style.display = 'none';
+  }
+  
+  // Set modal photo source
+  elements.modalPhoto.src = currentPhoto.image;
+  
   // Initialize results map
   initResultsMap(currentPhoto);
   
@@ -548,6 +747,14 @@ function showRoundResults() {
   }
 }
 
+function openPhotoModal() {
+  elements.photoModal.classList.add('active');
+}
+
+function closePhotoModal() {
+  elements.photoModal.classList.remove('active');
+}
+
 function initResultsMap(photo) {
   if (resultsMap) {
     resultsMap.remove();
@@ -555,13 +762,18 @@ function initResultsMap(photo) {
   
   resultsMap = new mapboxgl.Map({
     container: 'results-map',
-    style: 'mapbox://styles/mapbox/streets-v12',
+    style: getMapStyle(),
     zoom: 2,
     center: [photo.lng, photo.lat],
   });
   
   resultsMap.dragRotate.disable();
   resultsMap.touchZoomRotate.disableRotation();
+  
+  // Hide labels after map loads
+  resultsMap.on('load', () => {
+    hideMapLabels(resultsMap);
+  });
 }
 
 function showAllGuessesOnMap(photo) {
@@ -738,7 +950,11 @@ function renderFinalLeaderboard(sortedPlayers) {
 }
 
 function launchConfetti() {
-  const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#F7DC6F', '#BB8FCE', '#82E0AA'];
+  // Use Christmas colors if in Christmas theme
+  const isChristmas = document.body.classList.contains('christmas');
+  const colors = isChristmas 
+    ? ['#c41e3a', '#2d5a27', '#ffd700', '#ffffff', '#ff6b6b', '#90EE90']  // Christmas: red, green, gold, white
+    : ['#FF6B6B', '#4ECDC4', '#45B7D1', '#F7DC6F', '#BB8FCE', '#82E0AA']; // Default colors
   
   for (let i = 0; i < 50; i++) {
     setTimeout(() => {
@@ -804,7 +1020,7 @@ function formatDistance(meters) {
   if (meters < 1000) {
     return `${Math.round(meters)} m`;
   } else {
-    return `${(meters / 1000).toFixed(1)} km`;
+    return `${(meters / 1000).toFixed(0)} km`;
   }
 }
 
