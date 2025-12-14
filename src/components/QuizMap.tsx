@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../types';
 import { useTheme } from '../context/ThemeContext';
@@ -14,11 +14,13 @@ export function QuizMap({ playerColor, onGuess, guessCoordinates }: QuizMapProps
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markerRef = useRef<mapboxgl.Marker | null>(null);
   const { isChristmas } = useTheme();
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Use simpler/lighter map style for better performance
   const getMapStyle = useCallback(() => {
     return isChristmas
       ? 'mapbox://styles/maxmijn/cmj4oe05b00bd01se3bmc7can'
-      : 'mapbox://styles/mapbox/streets-v12';
+      : 'mapbox://styles/mapbox/outdoors-v12'; // Lighter than streets-v12
   }, [isChristmas]);
 
   const hideMapLabels = useCallback((map: mapboxgl.Map) => {
@@ -50,15 +52,24 @@ export function QuizMap({ playerColor, onGuess, guessCoordinates }: QuizMapProps
       style: getMapStyle(),
       zoom: 1.5,
       center: [0, 20],
-      cooperativeGestures: true,
+      // Performance optimizations for older devices
+      antialias: false,
+      fadeDuration: 0,
+      trackResize: false,
+      maxTileCacheSize: 50,
+      refreshExpiredTiles: false,
     });
 
     map.dragRotate.disable();
     map.touchZoomRotate.disableRotation();
+    
+    // Additional performance tweaks
+    map.touchPitch.disable();
 
     map.on('load', () => {
       map.resize();
       hideMapLabels(map);
+      setIsLoading(false);
     });
 
     map.on('click', (e) => {
@@ -97,17 +108,31 @@ export function QuizMap({ playerColor, onGuess, guessCoordinates }: QuizMapProps
     }
   }, [guessCoordinates, playerColor]);
 
-  // Reset map view when no guess
+  // Reset map view when no guess (instant jump for better performance)
   useEffect(() => {
     const map = mapRef.current;
     if (!map || guessCoordinates) return;
 
-    map.flyTo({
+    // Use jumpTo instead of flyTo for better performance on older devices
+    map.jumpTo({
       center: [0, 20],
       zoom: 1.5,
-      duration: 500,
     });
   }, [guessCoordinates]);
 
-  return <div ref={mapContainerRef} className="map-container" />;
+  return (
+    <div className="map-container-wrapper">
+      {isLoading && (
+        <div className="map-loading">
+          <div className="map-loading-spinner" />
+          <span>Kaart laden...</span>
+        </div>
+      )}
+      <div 
+        ref={mapContainerRef} 
+        className="map-container" 
+        style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.3s ease' }}
+      />
+    </div>
+  );
 }

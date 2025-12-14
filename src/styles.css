@@ -1214,10 +1214,66 @@ body {
   min-height: 0;
 }
 
-.map-container {
+.map-container-wrapper {
   flex: 1;
   width: 100%;
   min-height: 0;
+  position: relative;
+}
+
+.map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  background: var(--color-light-gray);
+  z-index: 10;
+}
+
+.map-loading span {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.map-loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--color-light-gray);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+body.christmas .map-loading {
+  background: #1a472a;
+}
+
+body.christmas .map-loading span {
+  color: #ffd700;
+}
+
+body.christmas .map-loading-spinner {
+  border-color: rgba(255, 215, 0, 0.2);
+  border-top-color: #ffd700;
 }
 
 /* Ensure Mapbox canvas fills container */
@@ -1920,7 +1976,8 @@ body.christmas .view-photo-btn:hover {
 }
 
 /* ==================== RESPONSIVE ADJUSTMENTS ==================== */
-@media (max-width: 1024px) {
+/* Force horizontal layout on tablets - only switch to vertical on very narrow screens */
+@media (max-width: 600px) and (orientation: portrait) {
   .quiz-content {
     flex-direction: column;
   }
@@ -1950,6 +2007,37 @@ body.christmas .view-photo-btn:hover {
   .results-map-container {
     height: 300px;
     flex: none;
+  }
+}
+
+/* Tablet landscape - optimize for horizontal layout */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .photo-section {
+    width: 35%;
+  }
+  
+  .map-section {
+    width: 65%;
+  }
+  
+  .photo-caption {
+    font-size: 0.95rem;
+    padding: var(--spacing-xs);
+  }
+  
+  .player-turn-banner {
+    font-size: 1.1rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .confirm-btn {
+    padding: 14px 24px;
+    font-size: 1.2rem;
+  }
+  
+  .round-scores,
+  .total-scores {
+    width: 220px;
   }
 }
 

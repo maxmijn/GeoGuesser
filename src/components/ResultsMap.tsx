@@ -23,13 +23,20 @@ export function ResultsMap({ photo, guesses }: ResultsMapProps) {
       container: mapContainerRef.current,
       style: isChristmas
         ? 'mapbox://styles/maxmijn/cmj4oe05b00bd01se3bmc7can'
-        : 'mapbox://styles/mapbox/streets-v12',
+        : 'mapbox://styles/mapbox/outdoors-v12',
       zoom: 2,
       center: [photo.lng, photo.lat],
+      // Performance optimizations for older devices
+      antialias: false,
+      fadeDuration: 0,
+      trackResize: false,
+      maxTileCacheSize: 50,
+      refreshExpiredTiles: false,
     });
 
     map.dragRotate.disable();
     map.touchZoomRotate.disableRotation();
+    map.touchPitch.disable();
 
     map.on('load', () => {
       // Hide labels
