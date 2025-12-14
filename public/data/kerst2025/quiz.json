@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "image": "./images/nobelprijswinnaar-maria-corina-machado-begroet-haar-fans-vanaf-het-balkon-van-het-grand-hotel-in-oslo-waar-ze-na-een-bloedstollende-reis-is-aangekomen.avif",
+    "image": "images/nobelprijswinnaar-maria-corina-machado-begroet-haar-fans-vanaf-het-balkon-van-het-grand-hotel-in-oslo-waar-ze-na-een-bloedstollende-reis-is-aangekomen.avif",
     "text": "Waar is de foto van deze Venezolaanse vrouw gemaakt?",
     "answer": "Oslo, Noorwegen - Nobelprijswinnaar en oppositieleider Maria Corina Machado begroet haar fans vanaf het balkon van het Grand Hotel.",
     "lat": 59.9139,
@@ -9,7 +9,7 @@
   },
   {
     "id": "2",
-    "image": "./images/big-ben.svg",
+    "image": "images/big-ben.svg",
     "text": "De Grote Klok van deze klokkentoren weegt 13,5 ton",
     "answer": "Londen, Verenigd Koninkrijk - De Big Ben, officieel de Elizabeth Tower.",
     "lat": 51.5007,

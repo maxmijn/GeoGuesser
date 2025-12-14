@@ -1,3 +1,9 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
 # IDE
 .idea/
 .vscode/
@@ -13,4 +19,7 @@ Thumbs.db
 
 # Local development
 *.log
+*.local
 
+# Vite
+.vite/
