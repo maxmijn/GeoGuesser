@@ -71,18 +71,34 @@ export function ResultsMap({ photo, guesses }: ResultsMapProps) {
     map.touchZoomRotate.disableRotation();
     map.touchPitch.disable();
 
-    map.on('load', () => {
-      // Hide labels
-      const style = map.getStyle();
-      style?.layers?.forEach((layer) => {
-        if (layer.type === 'symbol') {
-          try {
-            map.setLayoutProperty(layer.id, 'visibility', 'none');
-          } catch {
-            // Ignore
+    // Function to hide all map labels
+    const hideLabels = () => {
+      try {
+        const style = map.getStyle();
+        style?.layers?.forEach((layer) => {
+          const isLabelLayer = layer.type === 'symbol' || 
+            layer.id.includes('label') || 
+            layer.id.includes('place') || 
+            layer.id.includes('poi');
+          
+          if (isLabelLayer) {
+            try {
+              map.setLayoutProperty(layer.id, 'visibility', 'none');
+            } catch {
+              // Ignore
+            }
           }
-        }
-      });
+        });
+      } catch {
+        // Ignore
+      }
+    };
+
+    // Also hide labels when style data changes (catches late-loading labels)
+    map.on('styledata', hideLabels);
+
+    map.on('load', () => {
+      hideLabels();
 
       const bounds = new mapboxgl.LngLatBounds();
       const trueLocation: [number, number] = [photo.lng, photo.lat];

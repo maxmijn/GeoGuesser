@@ -100,12 +100,17 @@ export function MapProvider({ children }: { children: ReactNode }) {
       map.setMaxPitch(0);
     }
 
-    map.on('load', () => {
-      // Hide labels
+    // Function to hide all map labels
+    const hideLabels = () => {
       try {
         const style = map.getStyle();
         style?.layers?.forEach((layer) => {
-          if (layer.type === 'symbol') {
+          const isLabelLayer = layer.type === 'symbol' || 
+            layer.id.includes('label') || 
+            layer.id.includes('place') || 
+            layer.id.includes('poi');
+          
+          if (isLabelLayer) {
             try {
               map.setLayoutProperty(layer.id, 'visibility', 'none');
             } catch {
@@ -116,6 +121,13 @@ export function MapProvider({ children }: { children: ReactNode }) {
       } catch {
         // Ignore
       }
+    };
+
+    // Also hide labels when style data changes (catches late-loading labels)
+    map.on('styledata', hideLabels);
+
+    map.on('load', () => {
+      hideLabels();
 
       preloadedMapRef.current = map;
       setIsPreloaded(true);

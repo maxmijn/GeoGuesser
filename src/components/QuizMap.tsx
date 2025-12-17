@@ -41,7 +41,13 @@ export function QuizMap({ playerColor, onGuess, guessCoordinates }: QuizMapProps
       if (!style?.layers) return;
 
       style.layers.forEach((layer) => {
-        if (layer.type === 'symbol') {
+        // Hide all symbol layers (text labels, icons) and any layer with label/place/poi in name
+        const isLabelLayer = layer.type === 'symbol' || 
+          layer.id.includes('label') || 
+          layer.id.includes('place') || 
+          layer.id.includes('poi');
+        
+        if (isLabelLayer) {
           try {
             map.setLayoutProperty(layer.id, 'visibility', 'none');
           } catch {
@@ -106,6 +112,11 @@ export function QuizMap({ playerColor, onGuess, guessCoordinates }: QuizMapProps
       map.resize();
       hideMapLabels(map);
       setIsLoading(false);
+    });
+
+    // Also hide labels when style data changes (catches late-loading labels)
+    map.on('styledata', () => {
+      hideMapLabels(map);
     });
 
     map.on('click', (e) => {
