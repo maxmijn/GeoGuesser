@@ -1,18 +1,82 @@
 [
   {
     "id": "1",
-    "image": "images/GettyImages-955441104.webp",
-    "text": "Deze iconische ijzeren toren werd voltooid in 1889",
-    "answer": "Parijs, Frankrijk - De Eiffeltoren is een symbool van de Franse stad Parijs.",
-    "lat": 48.8584,
-    "lng": 2.2945
+    "image": "images/67922297_10158859068863975_4163961048191205376_n.jpg",
+    "text": "Where is this festival?",
+    "answer": "Sziget Festival, Budapest",
+    "lat": 47.552050282588674,
+    "lng": 19.048830891671848
   },
   {
     "id": "2",
-    "image": "images/BiNbcY5fXy9Lra47jqHKGK.jpg",
-    "text": "Een oud amfitheater dat 50.000 toeschouwers kon bevatten",
-    "answer": "Rome, Italië - Het Colosseum is een van de meest bekende monumenten van Rome.",
-    "lat": 41.8902,
-    "lng": 12.4922
+    "image": "images/Berlin_Berghain.jpg",
+    "text": "What building are you looking at?",
+    "answer": "Berghain, Berlin",
+    "lat": 52.511220546141196,
+    "lng": 13.442965018979454
+  },
+  {
+    "id": "3",
+    "image": "images/IMG_6972.jpg",
+    "text": "Where did these cuties make this polaroid?",
+    "answer": "Radio Radio, Amsterdam",
+    "lat": 52.38617674689478,
+    "lng": 4.87409735575297
+  },
+  {
+    "id": "4",
+    "image": "images/IMG_6973.jpg",
+    "text": "Where is this rave cave?",
+    "answer": "De Banjaard, Zeeland",
+    "lat": 51.595621065435495,
+    "lng": 3.675598938039599
+  },
+  {
+    "id": "5",
+    "image": "images/IMG_6974.PNG",
+    "text": "Where were these Easter eggs hidden?",
+    "answer": "BASH Easter Hunt, Lijnbaansgracht 152",
+    "lat": 52.37096007662137,
+    "lng": 4.877209013423913
+  },
+  {
+    "id": "6",
+    "image": "images/Screenshot 2025-12-18 at 22.12.35.png",
+    "text": "Where is this?",
+    "answer": "Club Raum, Amsterdam",
+    "lat": 52.391215588968294,
+    "lng": 4.830850240410112
+  },
+  {
+    "id": "7",
+    "image": "images/tomorrowland-bouwt-binnen-36-uur-nieuwe-mainstage-687a8486b17b6.jpg",
+    "text": "Where is this stage?",
+    "answer": "Tomorrowland builds new mainstage in 36 hours",
+    "lat": 51.091710076736014,
+    "lng": 4.385573687989787
+  },
+  {
+    "id": "8",
+    "image": "images/WhatsApp Image 2025-12-18 at 18.43.45.jpeg",
+    "text": "Where was this image taken?",
+    "answer": "Sentier Mazzamuto, Sicily",
+    "lat": 38.02320771643193,
+    "lng": 13.558714547314779
+  },
+  {
+    "id": "11",
+    "image": "images/kerst2025/Claude-Songfestival-scaled.jpg",
+    "text": "Waar is deze foto gemaakt?",
+    "answer": "Songfestival, Bazel, Zwitserland",
+    "lat": 47.540102869898796,
+    "lng": 7.61833979791894
+  },
+  {
+    "id": "12",
+    "image": "images/kerst2025/nobelprijswinnaar-maria-corina-machado-begroet-haar-fans-vanaf-het-balkon-van-het-grand-hotel-in-oslo-waar-ze-na-een-bloedstollende-reis-is-aangekomen.avif",
+    "text": "Waar is de foto van deze Venezolaanse vrouw gemaakt?",
+    "answer": "Oslo, Noorwegen - Nobelprijswinnaar en oppositieleider Maria Corina Machado begroet haar fans vanaf het balkon van het Grand Hotel.",
+    "lat": 59.9139,
+    "lng": 10.7522
   }
 ]
