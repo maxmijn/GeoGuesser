@@ -84,7 +84,7 @@ export function MapProvider({ children }: { children: ReactNode }) {
       refreshExpiredTiles: false,
       renderWorldCopies: false,
       preserveDrawingBuffer: false,
-      maxZoom: 12,
+      maxZoom: 18,
       attributionControl: false,
       localIdeographFontFamily: 'sans-serif',
       collectResourceTiming: false,

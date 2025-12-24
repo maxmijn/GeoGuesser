@@ -1,18 +1,82 @@
 [
   {
     "id": "1",
-    "image": "images/nobelprijswinnaar-maria-corina-machado-begroet-haar-fans-vanaf-het-balkon-van-het-grand-hotel-in-oslo-waar-ze-na-een-bloedstollende-reis-is-aangekomen.avif",
-    "text": "Waar is de foto van deze Venezolaanse vrouw gemaakt?",
-    "answer": "Oslo, Noorwegen - Nobelprijswinnaar en oppositieleider Maria Corina Machado begroet haar fans vanaf het balkon van het Grand Hotel.",
-    "lat": 59.9139,
-    "lng": 10.7522
+    "image": "images/kerst2025/louvre.jpg",
+    "text": "Waar staat deze hoogwerker?",
+    "answer": "Overvallers stelen juwelen uit het Louvre, Galerie d'Apollon, Parijs",
+    "lat": 48.85996724943703,
+    "lng": 2.336867857541203
   },
   {
     "id": "2",
-    "image": "images/big-ben.svg",
-    "text": "De Grote Klok van deze klokkentoren weegt 13,5 ton",
-    "answer": "Londen, Verenigd Koninkrijk - De Big Ben, officieel de Elizabeth Tower.",
-    "lat": 51.5007,
-    "lng": -0.1246
+    "image": "images/kerst2025/voges-du-sud.jpg",
+    "text": "Waar dineren deze toppers?",
+    "answer": "Golf des Vosges du Sud (Luxeuil-Bellevue)",
+    "lat": 47.73242366204576,
+    "lng": 6.317495281020321
+  },
+  {
+    "id": "3",
+    "image": "images/kerst2025/copa-cabana.webp",
+    "text": "Waar is dit concert?",
+    "answer": "2,1 miljoen mensen kijken naar Lady Gaga in Copa Cabana, Brazil",
+    "lat": -22.968160613397956,
+    "lng": -43.177763201707610
+  },
+  {
+    "id": "4",
+    "image": "images/kerst2025/kreeftvissen.jpg",
+    "text": "Waar is deze picnic?",
+    "answer": "Kreeftvissen langs de Kalfjeslaan.",
+    "lat": 52.322206344529185,
+    "lng": 4.892357159984505
+  },
+  {
+    "id": "5",
+    "image": "images/kerst2025/deze-kostbare-gouden-topstukken-zijn-gestolen-uit-het-drents-museum.avif",
+    "text": "Waar stond dit helmpje?",
+    "answer": "Drents Museum, Assen",
+    "lat": 52.99343669641197,
+    "lng": 6.564031842281512
+  },
+  {
+    "id": "6",
+    "image": "images/kerst2025/weerribben.jpg",
+    "text": "Waar was dit zalige ontbijtje?",
+    "answer": "Hoogeweg 25, De Weerribben",
+    "lat": 52.80744496657626,
+    "lng": 5.9412023381217760
+  },
+  {
+    "id": "7",
+    "image": "images/kerst2025/jos-e1762470122237.jpg",
+    "text": "Waar is Jos?",
+    "answer": "St Jozef kerk in Tihun, Sierra Leone",
+    "lat": 7.562739447495561,
+    "lng": -12.090289726482533
+  },
+  {
+    "id": "8",
+    "image": "images/kerst2025/shirati.JPG",
+    "text": "Waar staan deze wereldreizigers?",
+    "answer": "Huis van Joost in Shirati, Tanzania",
+    "lat": -1.1525911517243237,
+    "lng": 34.02984774567564
+  },
+  {
+    "id": "9",
+    "image": "images/kerst2025/De-Librije-La-Liste.jpg",
+    "text": "Waar staan deze mensen?",
+    "answer": "De Librije in Zwolle",
+    "lat": 52.51552161019442,
+    "lng": 6.097756611578714
+  },
+  {
+    "id": "10",
+    "image": "images/kerst2025/gran-canaria.jpg",
+    "text": "Waar staan deze zonnetjes?",
+    "answer": "Playa de la Laja, Gran Canaria",
+    "lat": 28.059073221986264,
+    "lng": -15.419445052010953
   }
 ]

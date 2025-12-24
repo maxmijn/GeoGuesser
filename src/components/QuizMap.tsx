@@ -79,7 +79,7 @@ export function QuizMap({ playerColor, onGuess, guessCoordinates }: QuizMapProps
       // Additional performance options
       renderWorldCopies: false,
       preserveDrawingBuffer: false,
-      maxZoom: 12,
+      maxZoom: 18,
       attributionControl: false,
       // Skip loading CJK fonts
       localIdeographFontFamily: 'sans-serif',
