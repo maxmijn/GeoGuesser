@@ -8,7 +8,7 @@
     "lng": 2.336867857541203
   },
   {
-    "id": "3",
+    "id": "2",
     "image": "images/kerst2025/copa-cabana.webp",
     "text": "Waar is dit concert?",
     "answer": "2,1 miljoen mensen kijken naar Lady Gaga in Copa Cabana, Brazil",
@@ -16,7 +16,7 @@
     "lng": -43.177763201707610
   },
   {
-    "id": "5",
+    "id": "3",
     "image": "images/kerst2025/deze-kostbare-gouden-topstukken-zijn-gestolen-uit-het-drents-museum.avif",
     "text": "Waar stond dit helmpje?",
     "answer": "Drents Museum, Assen",
@@ -24,7 +24,7 @@
     "lng": 6.564031842281512
   },
   {
-    "id": "7",
+    "id": "4",
     "image": "images/kerst2025/jos-e1762470122237.jpg",
     "text": "Waar is Jos?",
     "answer": "St Jozef kerk in Tihun, Sierra Leone",
@@ -32,11 +32,59 @@
     "lng": -12.090289726482533
   },
   {
-    "id": "9",
+    "id": "5",
     "image": "images/kerst2025/De-Librije-La-Liste.jpg",
     "text": "Waar staan deze mensen?",
     "answer": "De Librije in Zwolle",
     "lat": 52.51552161019442,
     "lng": 6.097756611578714
+  },
+  {
+    "id": "6",
+    "image": "images/kerst2025/nobelprijswinnaar-maria-corina-machado-begroet-haar-fans-vanaf-het-balkon-van-het-grand-hotel-in-oslo-waar-ze-na-een-bloedstollende-reis-is-aangekomen.avif",
+    "text": "Waar is de foto van deze Venezolaanse vrouw gemaakt?",
+    "answer": "Oslo, Noorwegen - Nobelprijswinnaar en oppositieleider Maria Corina Machado begroet haar fans vanaf het balkon van het Grand Hotel.",
+    "lat": 59.9139,
+    "lng": 10.7522
+  },
+  {
+    "id": "7",
+    "image": "images/kerst2025/Claude-Songfestival-scaled.jpg",
+    "text": "Waar is deze foto gemaakt?",
+    "answer": "Songfestival, Bazel, Zwitserland",
+    "lat": 47.540102869898796,
+    "lng": 7.61833979791894
+  },
+  {
+    "id": "8",
+    "image": "images/tomorrowland-bouwt-binnen-36-uur-nieuwe-mainstage-687a8486b17b6.jpg",
+    "text": "Where is this stage?",
+    "answer": "Tomorrowland builds new mainstage in 36 hours",
+    "lat": 51.091710076736014,
+    "lng": 4.385573687989787
+  },
+  {
+    "id": "9",
+    "image": "images/Screenshot 2025-12-18 at 22.12.35.png",
+    "text": "Where is this?",
+    "answer": "Club Raum, Amsterdam",
+    "lat": 52.391215588968294,
+    "lng": 4.830850240410112
+  },
+  {
+    "id": "10",
+    "image": "images/67922297_10158859068863975_4163961048191205376_n.jpg",
+    "text": "Where is this festival?",
+    "answer": "Sziget Festival, Budapest",
+    "lat": 47.552050282588674,
+    "lng": 19.048830891671848
+  },
+  {
+    "id": "11",
+    "image": "images/Berlin_Berghain.jpg",
+    "text": "What building are you looking at?",
+    "answer": "Berghain, Berlin",
+    "lat": 52.511220546141196,
+    "lng": 13.442965018979454
   }
 ]
